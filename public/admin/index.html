@@ -1,11 +1,24 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>内容管理后台</title>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Admin</title>
+<!-- Decap CMS 核心脚本（托管版） -->
+<link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
 </head>
 <body>
-  </body>
+<!-- Netlify Identity 小部件（启用 Git Gateway 登录用） -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+<script>
+// 自动刷新以便登录后进入后台
+if (window.netlifyIdentity) {
+window.netlifyIdentity.on('init', user => {
+if (!user) window.netlifyIdentity.on('login', () => document.location.reload());
+});
+}
+</script>
+</body>
 </html>
