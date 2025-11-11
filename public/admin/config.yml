@@ -1,0 +1,31 @@
+# 1. 后端设置: 使用 Netlify 的 Git Gateway
+backend:
+  name: git-gateway
+  branch: main # 确保这是你的主分支 (main 或 master)
+
+# 2. 媒体 (图片) 设置
+# Astro Paper 喜欢把图片放在 /public/assets/images/
+media_folder: "public/assets/images"
+public_folder: "/assets/images"
+
+# 3. 内容集合 (Collections)
+collections:
+  - name: "blog" # 必须匹配 Astro Paper 的 'src/content/blog'
+    label: "博客文章"
+    folder: "src/content/blog"
+    create: true
+    # Astro Paper 使用文件名作为 slug，所以我们直接用 slug
+    slug: "{{slug}}"
+
+    # 字段: 这些字段完全匹配 Astro Paper 的 frontmatter
+    fields:
+      - { label: "标题 (Title)", name: "title", widget: "string" }
+      - { label: "描述 (Description)", name: "description", widget: "string" }
+      # 关键: Astro Paper 使用 'pubDatetime' 而不是 'pubDate'
+      - { label: "发布时间 (PubDatetime)", name: "pubDatetime", widget: "datetime" }
+      - { label: "是否精选 (Featured)", name: "featured", widget: "boolean", default: false }
+      - { label: "是否草稿 (Draft)", name: "draft", widget: "boolean", default: false }
+      - { label: "标签 (Tags)", name: "tags", widget: "list" }
+      # Astro Paper 使用 'ogImage' 作为文章封面图
+      - { label: "封面图片 (OG Image)", name: "ogImage", widget: "image", optional: true }
+      - { label: "正文 (Body)", name: "body", widget: "markdown" }
